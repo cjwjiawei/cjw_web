@@ -50,7 +50,6 @@
                 <artifactId>fastjson</artifactId>
                 <version>${fastJson.version}</version>
             </dependency>
-
         </dependencies>
     </dependencyManagement>
 
