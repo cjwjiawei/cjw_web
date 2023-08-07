@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.cjw</groupId>
+    <artifactId>cjw_web</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>web_tool</module>
+        <module>cjw_admin</module>
+    </modules>
+
+    <properties>
+        <java.version>8</java.version>
+        <lombok.version>1.18.10</lombok.version>
+        <jackson.version>2.5.4</jackson.version>
+        <springBoot.version>2.2.2.RELEASE</springBoot.version>
+        <cjw.version>0.0.1-SNAPSHOT</cjw.version>
+        <fastJson.version>1.2.28</fastJson.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>2.2.2.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--工具包-->
+            <dependency>
+                <groupId>com.cjw</groupId>
+                <artifactId>web_tool</artifactId>
+                <version>${cjw.version}</version>
+            </dependency>
+            <!--主启动类-->
+            <dependency>
+                <groupId>com.cjw</groupId>
+                <artifactId>cjw_admin</artifactId>
+                <version>${cjw.version}</version>
+            </dependency>
+            <!-- json工具-->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastJson.version}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+
+
+
+
+</project>
