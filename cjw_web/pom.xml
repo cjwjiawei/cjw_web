@@ -20,6 +20,7 @@
         <springBoot.version>2.2.2.RELEASE</springBoot.version>
         <cjw.version>0.0.1-SNAPSHOT</cjw.version>
         <fastJson.version>1.2.28</fastJson.version>
+        <userAgentUtils.version>1.21</userAgentUtils.version>
     </properties>
 
     <dependencyManagement>

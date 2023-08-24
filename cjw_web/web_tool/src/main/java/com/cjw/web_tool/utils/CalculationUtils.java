@@ -1,8 +1,10 @@
 package com.cjw.web_tool.utils;
 
+import com.cjw.web_tool.entity.HouseLoan;
 import com.cjw.web_tool.entity.SalaryEntity;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,41 +45,58 @@ public class CalculationUtils {
     }
 
     /**
+     * 房贷计算器
      * 等额本金计算
-     * @param money 总金额
-     * @param lv 年利率
+     * 计算公式：
+     * 每月应还本金=本金/总期次
+     * 利息=本金*每月利率
+     * 还款额=本金+利息
+     *
+     * @param loan 总金额
+     * @param apr 年利率
      * @param years 借贷时间/年
      */
 
-    public static List<String> calculate (Double money,Double lv,Integer years){
-        List<String> date= new ArrayList<>();
+    public static HouseLoan calculate (Double loan, Double apr, Integer years){
+
+        HouseLoan houseLoan =new HouseLoan();
+        List<HouseLoan.Loan> loanList = new ArrayList<>();
+
         //每月利率
+        apr =BigDecimal.valueOf(apr)
+                .divide(BigDecimal.valueOf(100))
+                .divide(BigDecimal.valueOf(12),5,BigDecimal.ROUND_DOWN).doubleValue();
+        Integer mouthly = 60;
+        Double surplusPrinciple =loan;
+        Double resultMoney=0.00;
 
-        BigDecimal ratio = BigDecimal.valueOf(lv / 12);
-        Integer month =years*12;
-        DecimalFormat df = new DecimalFormat("#0.00");
-        Double temp1=money;
-        Double repay=0.0;
-        //等额本金
-        for (int i = 1; i <=month; i++) {
+        //每月应还本金
+        double mothlyRepayMoney = BigDecimal.valueOf(loan).divide(BigDecimal.valueOf(mouthly), 2,BigDecimal.ROUND_DOWN).doubleValue();
 
-            //每个月应还本金
-            double baseMoney =Double.parseDouble(df.format(money/month));
+        for (int i = 1; i <=mouthly ; i++) {
 
-            Double currepay =Double.valueOf(df.format(baseMoney+(temp1*lv)));
-            String str =String.format("第%s月应还:%s",i,currepay);
-            date.add(str);
-            System.out.println(str);
-            repay+=currepay;
+            HouseLoan.Loan loans = new HouseLoan.Loan();
+            loans.setPrincipal(mothlyRepayMoney);
+            Double interest = BigDecimal.valueOf(surplusPrinciple).multiply(BigDecimal.valueOf(apr)).setScale(2,BigDecimal.ROUND_DOWN).doubleValue();
+            loans.setInterest(interest);
+            double v = BigDecimal.valueOf(mothlyRepayMoney).multiply(BigDecimal.valueOf(i)).doubleValue();
+            surplusPrinciple=BigDecimal.valueOf(loan).subtract(BigDecimal.valueOf(v)).setScale(2,BigDecimal.ROUND_DOWN).doubleValue();
+            loans.setSurplusPrinciple(surplusPrinciple);
+            double curRepay = BigDecimal.valueOf(mothlyRepayMoney).add(BigDecimal.valueOf(interest), MathContext.UNLIMITED).doubleValue();
+            loans.setCurRepay(curRepay);
+            loans.setIssue(i);
 
-            temp1=Double.valueOf(df.format(temp1-baseMoney));
-//            month--;
+            resultMoney=BigDecimal.valueOf(resultMoney).add(BigDecimal.valueOf(curRepay)).doubleValue();
+//            String str ="第"+loans.getIssue()+"期，应还本金"+loans.getPrincipal()+", 应还利息"+loans.getInterest()+
+//                    ", 应还金额"+loans.getCurRepay()+" 剩余本金"+loans.getSurplusPrinciple();
+
+            loanList.add(loans);
+//            System.out.println(str);
         }
 
-        System.out.println("剩余本金"+temp1.toString());
-
-        System.out.println("还款总金额"+repay);
-        return date;
+        houseLoan.setLoans(loanList);
+        houseLoan.setTotal(resultMoney);
+        return houseLoan;
     }
 
     /**

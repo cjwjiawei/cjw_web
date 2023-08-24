@@ -3,35 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>web_tools</title>
-    <script type="text/javascript" src="/js/calculate.js"></script>
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/lib/jquery.js"></script>
+    <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+    <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>
+    <script type="text/javascript" th:src="@{/js/calculate.js}"></script>
+    <link rel="stylesheet"  th:href="@{/css/calculate.css}" type="text/css" >
+    <!--<link rel="stylesheet" href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" type="text/css" >-->
+    <!--<link rel="stylesheet" href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" type="text/css" >-->
+
 </head>
+<style>
+
+</style>
 <body>
 <div class="g-nav clearfix">
     <ul>
-        <li class="hidden-xs"><a th:href="@{index}">首页</a></li>
+        <li class="hidden-xs"><a th:href="@{/}">首页</a></li>
     </ul>
 </div>
+
 <div class="item-list">
-    <div class="menu-item">
-        <div class="item-hd">
+</div>
+<div class="menu-item">
+    <div class="item-hd">
 
-            <a>房贷计算器</a>
-            <input type="text" default="总贷款金额" name="loan">
-            <input type="text" default="贷款年限" name="years">
-            <input type="text" default="利率" name="apr">
-            <button type="button" name="计算" value="计算" onclick="submint()">
+        <p v-if></p>
+        <p>房贷计算器</p>
+        <div id="calculate">
+            <p>贷款金额:<input type="text"  name="loan"></p>
+            <p>年 限:<input type="text"  name="years"></p>
+            <p>利 率:<input type="text" name="apr"></p>
+            <button type="submit" onclick="submint()" >计算</button>
         </div>
-    </div>
-    <div class="menu-item">
-        <div class="item-hd">
-            <p></p>
-        </div>
-    </div>
-    <div class="tt">
+
+
 
     </div>
-
 </div>
 </body>
 </html>

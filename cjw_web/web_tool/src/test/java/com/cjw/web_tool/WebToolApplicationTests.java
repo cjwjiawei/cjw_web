@@ -17,12 +17,13 @@ class WebToolApplicationTests {
         Double aDouble = CalculationUtils.insuranceCalculator(salaryEntity);
 //        System.out.println(aDouble);
 
-        CalculationUtils.calculate(60000.0,0.003,1);
+//        CalculationUtils.calculate(60000.0,0.003,1);
         BigDecimal s =new BigDecimal(12);
         BigDecimal a= new BigDecimal(0.4);
         double v = a.divide(s, 4,BigDecimal.ROUND_UP).doubleValue();
         System.out.println(v);
     }
+
 
     void contextLoads() {
     }

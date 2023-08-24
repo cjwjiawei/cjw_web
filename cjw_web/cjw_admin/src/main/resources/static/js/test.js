@@ -1,4 +1,6 @@
 (function () {
-    var  a ="hello";
-    console.log(a);
 })()
+function check() {
+
+    console.log("test")
+}

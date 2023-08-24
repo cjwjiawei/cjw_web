@@ -1,0 +1,15 @@
+html {
+    height:100%
+}
+.item-list{
+    float: left;
+    width: 10%;
+}
+
+.g-nav clearfix{
+    height: 10%;
+}
+.menu-item{
+    float: right;
+    width: 90%;
+}

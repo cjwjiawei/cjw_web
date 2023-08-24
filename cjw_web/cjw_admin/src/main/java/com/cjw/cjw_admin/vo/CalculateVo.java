@@ -4,15 +4,15 @@ import lombok.Data;
 
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
+
 
 @Data
 public class CalculateVo {
     @NotBlank
-    private Double loan;
+    private String loan;
     @NotBlank
-    private Double apr;
+    private String apr;
     @NotBlank
-    private Double years;
+    private Integer years;
 
 }
